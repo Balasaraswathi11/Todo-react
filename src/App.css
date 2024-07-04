@@ -33,9 +33,7 @@ padding: 2px 10px;
 .carddiv::-webkit-scrollbar-thumb:hover {
     background: #f1f1f1;
 }
-.inputname{
-    padding-left: 90px;
-}
+
 .button{
     margin-left: 0px;
 }
