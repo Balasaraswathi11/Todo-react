@@ -1,0 +1,56 @@
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 20px;
+  
+}
+.buttonn{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 80px;
+}
+.edit{
+    width: 60px;
+}
+.select{
+   
+    width: auto;
+    padding: 0;
+font-size: 15px;
+margin-left: 10px;
+padding: 2px 10px;
+}
+.carddiv{
+    height: 230px;
+   
+    overflow: auto;
+    background-color: rgb(211, 243, 193);
+   
+}
+.card-body{  background-color: rgb(211, 243, 193);
+    width: 350px;}
+.carddiv::-webkit-scrollbar-thumb:hover {
+    background: #f1f1f1;
+}
+.inputname{
+    padding-left: 90px;
+}
+.button{
+    margin-left: 0px;
+}
+.filtersel{
+    margin-left: 10px;
+    width: 100px;
+    border-radius: 5px;
+}
+.inputone,.inputtwo{
+    outline: none;
+    border: rgb(51, 194, 51) 2px solid;
+}
+.inputone:focus{
+    border:green solid 2px;
+}
+.inputtwo:focus{
+    border:green solid 2px;
+}

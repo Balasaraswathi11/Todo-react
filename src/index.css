@@ -1,0 +1,10 @@
+.input1{
+  width: 20px;
+}
+.formdiv{
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  flex-wrap: wrap;
+
+}
