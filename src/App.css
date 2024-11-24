@@ -23,13 +23,18 @@ padding: 2px 10px;
 }
 .carddiv{
     height: 230px;
-   
+    border-radius: 20px;
+    padding: 10px;
+ 
     overflow: auto;
     background-color: rgb(211, 243, 193);
    
 }
 .card-body{  background-color: rgb(211, 243, 193);
-    width: 350px;}
+    width: 350px;
+   
+    margin: 10px;
+border-radius: 20px;}
 .carddiv::-webkit-scrollbar-thumb:hover {
     background: #f1f1f1;
 }
@@ -52,3 +57,18 @@ padding: 2px 10px;
 .inputtwo:focus{
     border:green solid 2px;
 }
+.filtersel option {
+   
+    background-color: white; /* Default background for options */
+    color: black; /* Default text color for options */
+  }
+  
+  .filtersel option:hover {
+    background-color: lightblue; /* Change background color on hover */
+    color: black; /* Ensure text color remains readable */
+  }
+  
+  .filtersel option:checked {
+    background-color: yellow; /* Background color of the selected option */
+  }
+  

@@ -1,12 +1,25 @@
 import React, { useState } from 'react';
-
+import { Port } from '../App';
+import axios from 'axios';
 const Tododata = ({ data, todos, setTodos, index }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedData, setEditedData] = useState({ ...data });
 
-    const handleDelete = () => {
-        const newTodos = todos.filter((_, ind) => ind !== index);
-        setTodos(newTodos);
+    const handleDelete = async() => {
+        const confirmed = window.confirm("Are you sure you want to delete this todo?");
+        if(confirmed){
+        try {
+            await axios.delete(`${Port}/app/deletetodo/${data._id}`)
+            const newtodos=todos.filter((_,ind)=>ind!==index)
+            setTodos(newtodos)
+        } catch (error) {
+            console.error('Error deleting todo:', error);
+        }}
+        else {
+            
+            console.log("Deletion canceled");
+        }
+      
     }
 
     const handleEdit = () => {
@@ -14,37 +27,52 @@ const Tododata = ({ data, todos, setTodos, index }) => {
         setEditedData({ ...data });
     }
 
-    const handleSave = () => {
-        const newTodos = [...todos];
-        newTodos[index] = editedData;
-        setTodos(newTodos);
-        setIsEditing(false);
-    }
-
-    const handleCancel = () => {
-        setIsEditing(false);
-    }
-
-    const handleInputChange = (e) => {
+    const handleSave = async () => {
+        try {
+          const response = await axios.put(`${Port}/app/updatetodo/${data._id}`, editedData);
+          const newTodos = [...todos];
+          newTodos[index] = response.data.updatetodo;
+          setTodos(newTodos);
+          setIsEditing(false);
+        } catch (error) {
+          console.error('Error updating todo:', error);
+        }
+      };
+      const handleInputChange = (e) => {
         const { name, value } = e.target;
         setEditedData({ ...editedData, [name]: value });
-    }
+      };
 
-    const handleStatusChange = (e) => {
+      const handleCancel = () => {
+        setIsEditing(false);
+      };
+    
+
+      const handleStatusChange = async (e) => {
         const newStatus = e.target.value;
-        const newTodos = todos.map((todo, ind) => {
+        try {
+          const response = await axios.put(`${Port}/app/updatetodo/${data._id}`, {
+            ...data,
+            status: newStatus,
+          });
+          const newTodos = todos.map((todo, ind) => {
             if (ind === index) {
-                return { ...todo, status: newStatus };
+              return { ...todo, status: newStatus };
             }
             return todo;
-        });
-        setTodos(newTodos);
-    }
-
-    return (
-        <div className="col-md-4 mb-3 mt-5">
-            <div className="card" style={{ width: "18rem" }}>
-                <div className="card-body">
+          });
+          setTodos(newTodos);
+        } catch (error) {
+          console.error('Error updating status:', error);
+        }
+      };
+    return (<>
+    
+    <div
+    className="cardcontainer d-flex justify-content-center align-content-center"
+    style={{ width: "400px", borderRadius:"60px" }} // Adjust the width as needed
+>
+    <div className="card-body ">
                     {isEditing ? (
                         <>
                             <input
@@ -65,7 +93,7 @@ const Tododata = ({ data, todos, setTodos, index }) => {
                         </>
                     ) : (
                         <>
-                        <div className="carddiv">
+                        <div className="carddiv flex">
                             <h6 className="card-title p-2">Name: {data.name}</h6>
                             <h6 className="card-subtitle mb-2 text-muted p-2"><b>Description:</b> {data.description}</h6>
                             <div className='d-flex justify-content-start align-items-center '>
@@ -87,8 +115,10 @@ const Tododata = ({ data, todos, setTodos, index }) => {
                     )}
                  
                 </div>
-            </div>
-        </div>
+    </div>
+                </>
+
+           
     );
 }
 

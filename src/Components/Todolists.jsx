@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tododata from './Tododata';
+import axios from 'axios';
+import { Port } from '../App';
 
 const Todolists = ({ todos, setTodos }) => {
     const [filter, setFilter] = useState("All");
+
+    useEffect(()=>{
+const fetchtodos=async()=>{
+    try {
+        const response=await axios.get(`${Port}/app/getalltodos`)
+        setTodos(response.data.alltodo);
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+    }
+}
+   fetchtodos()
+},[setTodos])
 
     const filteredTodos = todos.filter(todo => {
         if (filter === "All") return true;
@@ -16,7 +30,7 @@ const Todolists = ({ todos, setTodos }) => {
             <h4 className="mt-5">My Todos</h4></div>
             <div className="mt-5">
                 <label>Status Filter: </label>
-                <select  onChange={(e) => setFilter(e.target.value)} className="filtersel" style={{backgroundColor:filter==="Completed"?"green":"red", color:"white"}}>
+                <select className="filtersel"  onChange={(e) => setFilter(e.target.value)}  style={{backgroundColor:filter==="Completed"?"green":"red", color:"white"}}>
                    
                     <option value="All" >All</option>
                     <option value="Completed">Completed</option>

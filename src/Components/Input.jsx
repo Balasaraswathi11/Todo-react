@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Input.css";
+import { Port } from '../App';
 import Todolists from './Todolists';
+import axios from 'axios';
 
 const Input = () => {
     const [inputName, setInputName] = useState('');
@@ -17,12 +19,26 @@ const Input = () => {
         setInputDescription(event.target.value);
     }
 
-    const handleButton = (event) => {
+    const handleButton = async(event) => {
         event.preventDefault();
         if(inputName.trim()&&inputDescription.trim()!==''){
-        setTodos([...todos, { name: inputName, description: inputDescription, status: "Not Completed" }]);
-        setInputName('');
-        setInputDescription('');
+
+            try {
+                const response=await axios.post(`${Port}/app/create`,{
+                    name:inputName,
+                    description: inputDescription,
+                    status: "Not Completed"
+                })
+
+                setTodos([...todos,response.data.newtodo])
+                setInputName('');
+                setInputDescription('');
+            } catch (error) {
+                console.error('Error creating todo:', error);
+            }
+        // setTodos([...todos, { name: inputName, description: inputDescription, status: "Not Completed" }]);
+        // setInputName('');
+        // setInputDescription('');
     }}
 
     return (
