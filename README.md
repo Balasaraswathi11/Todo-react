@@ -14,3 +14,6 @@ This project is a simple yet efficient Todo application built with React and sty
 - **Bootstrap:** For styling the app with a modern, responsive layout and pre-designed components.
 - **React Hooks:** Utilized `useState` and other hooks for managing state effectively.
 - **CSS:** For custom styles to complement Bootstrap.
+
+** (Todo Frontend)[https://github.com/Balasaraswathi11/Todo-backend.git]
+** (Netlify deployed link)[https://todo-react-25.netlify.app]
